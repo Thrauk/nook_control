@@ -1,0 +1,5 @@
+class: User
+fields:
+  username: String
+  password: String
+  id: int?

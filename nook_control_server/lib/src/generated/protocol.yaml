@@ -1,0 +1,9 @@
+company:
+  - isLegit:
+example:
+  - hello:
+resourceTest:
+  - register:
+userEndpoit:
+  - register:
+  - login:
