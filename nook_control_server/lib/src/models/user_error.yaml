@@ -1,0 +1,4 @@
+enum: UserError
+values:
+  - invalidLogin
+  - expiredToken

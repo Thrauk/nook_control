@@ -1,10 +1,12 @@
 import 'package:go_router/go_router.dart';
 import 'package:nook_control_client/nook_control_client.dart';
 import 'package:flutter/material.dart';
+import 'package:nook_control_flutter/src/features/authentication/domain/auth_manager.dart';
 import 'package:nook_control_flutter/src/features/authentication/domain/simple_auth_key_manager.dart';
 import 'package:nook_control_flutter/src/features/authentication/presentation/screens/login_screen.dart';
 import 'package:nook_control_flutter/src/features/authentication/presentation/screens/main_screen.dart';
 import 'package:nook_control_flutter/src/features/authentication/presentation/screens/register_screen.dart';
+import 'package:provider/provider.dart';
 import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart';
 import 'package:serverpod_flutter/serverpod_flutter.dart';
 import 'package:url_strategy/url_strategy.dart';
@@ -14,21 +16,24 @@ import 'package:url_strategy/url_strategy.dart';
 // The client is set up to connect to a Serverpod running on a local server on
 // the default port. You will need to modify this to connect to staging or
 // production servers.
+
+var authManager = SimpleAuthKeyManager();
+
 var client = Client(
   'http://$localhost:8080/',
-  authenticationKeyManager: FlutterAuthenticationKeyManager(),
+  authenticationKeyManager: authManager,
 )..connectivityMonitor = FlutterConnectivityMonitor();
 
-// late SessionManager sessionManager;
+late SessionManager sessionManager;
 
 void main() async {
   setPathUrlStrategy();
-  // sessionManager = SessionManager(caller: client.modules.auth);
-  // await sessionManager.initialize();
-  // sessionManager.addListener(() {
-  //   _router.refresh();
-  //   print(sessionManager.isSignedIn);
-  // });
+  authManager.addListener(
+    () {
+      print('Something happened!');
+      mainRouter.refresh();
+    },
+  );
   runApp(const MyApp());
 }
 
@@ -76,8 +81,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  late final GoRouter router;
-
   @override
   void initState() {
     super.initState();

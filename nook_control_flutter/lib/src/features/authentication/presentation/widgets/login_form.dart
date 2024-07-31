@@ -52,17 +52,17 @@ class _LoginFormState extends State<LoginForm> {
               ),
               ElevatedButton(
                 onPressed: () async {
-                  final AuthResponse authResponse = await client.userEndpoit.login(
-                    User(
-                      username: _usernameController.text,
-                      password: _encrypt256(_passwordController.text),
-                    ),
-                  );
-                  print(authResponse);
-                  if (authResponse.success) {
+                  try {
+                    final AuthResponse authResponse = await client.userEndpoit.login(
+                      User(
+                        username: _usernameController.text,
+                        password: _encrypt256(_passwordController.text),
+                      ),
+                    );
                     await client.authenticationKeyManager?.put(authResponse.token!);
-                    mainRouter.refresh();
-                    // _router.refresh();
+                    // mainRouter.refresh();
+                  } on AuthException catch (e) {
+                    print('Error on auth ');
                   }
                 },
                 child: const Text('Login'),

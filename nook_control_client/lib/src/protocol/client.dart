@@ -13,7 +13,8 @@ import 'dart:async' as _i2;
 import 'package:nook_control_client/src/protocol/company.dart' as _i3;
 import 'package:nook_control_client/src/protocol/user.dart' as _i4;
 import 'package:nook_control_client/src/protocol/auth_response.dart' as _i5;
-import 'protocol.dart' as _i6;
+import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i6;
+import 'protocol.dart' as _i7;
 
 /// {@category Endpoint}
 class EndpointCompany extends _i1.EndpointRef {
@@ -79,6 +80,14 @@ class EndpointUserEndpoit extends _i1.EndpointRef {
       );
 }
 
+class _Modules {
+  _Modules(Client client) {
+    auth = _i6.Caller(client);
+  }
+
+  late final _i6.Caller auth;
+}
+
 class Client extends _i1.ServerpodClient {
   Client(
     String host, {
@@ -94,7 +103,7 @@ class Client extends _i1.ServerpodClient {
     Function(_i1.MethodCallContext)? onSucceededCall,
   }) : super(
           host,
-          _i6.Protocol(),
+          _i7.Protocol(),
           securityContext: securityContext,
           authenticationKeyManager: authenticationKeyManager,
           streamingConnectionTimeout: streamingConnectionTimeout,
@@ -106,6 +115,7 @@ class Client extends _i1.ServerpodClient {
     example = EndpointExample(this);
     resourceTest = EndpointResourceTest(this);
     userEndpoit = EndpointUserEndpoit(this);
+    modules = _Modules(this);
   }
 
   late final EndpointCompany company;
@@ -116,6 +126,8 @@ class Client extends _i1.ServerpodClient {
 
   late final EndpointUserEndpoit userEndpoit;
 
+  late final _Modules modules;
+
   @override
   Map<String, _i1.EndpointRef> get endpointRefLookup => {
         'company': company,
@@ -125,5 +137,6 @@ class Client extends _i1.ServerpodClient {
       };
 
   @override
-  Map<String, _i1.ModuleEndpointCaller> get moduleLookup => {};
+  Map<String, _i1.ModuleEndpointCaller> get moduleLookup =>
+      {'auth': modules.auth};
 }

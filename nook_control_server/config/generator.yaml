@@ -1,0 +1,3 @@
+modules:
+  serverpod_auth:
+    nickname: auth

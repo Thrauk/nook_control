@@ -15,6 +15,7 @@ import '../endpoints/resource_test_endpoint.dart' as _i4;
 import '../endpoints/user_endpoit.dart' as _i5;
 import 'package:nook_control_server/src/generated/company.dart' as _i6;
 import 'package:nook_control_server/src/generated/user.dart' as _i7;
+import 'package:serverpod_auth_server/serverpod_auth_server.dart' as _i8;
 
 class Endpoints extends _i1.EndpointDispatch {
   @override
@@ -159,5 +160,6 @@ class Endpoints extends _i1.EndpointDispatch {
         ),
       },
     );
+    modules['serverpod_auth'] = _i8.Endpoints()..initializeEndpoints(server);
   }
 }

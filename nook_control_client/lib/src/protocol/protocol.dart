@@ -10,16 +10,21 @@
 library protocol; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
-import 'auth_response.dart' as _i2;
-import 'company.dart' as _i3;
-import 'example.dart' as _i4;
-import 'jwt_payload.dart' as _i5;
-import 'user.dart' as _i6;
+import 'auth_exception.dart' as _i2;
+import 'auth_response.dart' as _i3;
+import 'company.dart' as _i4;
+import 'example.dart' as _i5;
+import 'jwt_payload.dart' as _i6;
+import 'user.dart' as _i7;
+import 'user_error.dart' as _i8;
+import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i9;
+export 'auth_exception.dart';
 export 'auth_response.dart';
 export 'company.dart';
 export 'example.dart';
 export 'jwt_payload.dart';
 export 'user.dart';
+export 'user_error.dart';
 export 'client.dart';
 
 class Protocol extends _i1.SerializationManager {
@@ -35,79 +40,115 @@ class Protocol extends _i1.SerializationManager {
     Type? t,
   ]) {
     t ??= T;
-    if (t == _i2.AuthResponse) {
-      return _i2.AuthResponse.fromJson(data) as T;
+    if (t == _i2.AuthException) {
+      return _i2.AuthException.fromJson(data) as T;
     }
-    if (t == _i3.Company) {
-      return _i3.Company.fromJson(data) as T;
+    if (t == _i3.AuthResponse) {
+      return _i3.AuthResponse.fromJson(data) as T;
     }
-    if (t == _i4.Example) {
-      return _i4.Example.fromJson(data) as T;
+    if (t == _i4.Company) {
+      return _i4.Company.fromJson(data) as T;
     }
-    if (t == _i5.JwtPayload) {
-      return _i5.JwtPayload.fromJson(data) as T;
+    if (t == _i5.Example) {
+      return _i5.Example.fromJson(data) as T;
     }
-    if (t == _i6.User) {
-      return _i6.User.fromJson(data) as T;
+    if (t == _i6.JwtPayload) {
+      return _i6.JwtPayload.fromJson(data) as T;
     }
-    if (t == _i1.getType<_i2.AuthResponse?>()) {
-      return (data != null ? _i2.AuthResponse.fromJson(data) : null) as T;
+    if (t == _i7.User) {
+      return _i7.User.fromJson(data) as T;
     }
-    if (t == _i1.getType<_i3.Company?>()) {
-      return (data != null ? _i3.Company.fromJson(data) : null) as T;
+    if (t == _i8.UserError) {
+      return _i8.UserError.fromJson(data) as T;
     }
-    if (t == _i1.getType<_i4.Example?>()) {
-      return (data != null ? _i4.Example.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i2.AuthException?>()) {
+      return (data != null ? _i2.AuthException.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i5.JwtPayload?>()) {
-      return (data != null ? _i5.JwtPayload.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i3.AuthResponse?>()) {
+      return (data != null ? _i3.AuthResponse.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i6.User?>()) {
-      return (data != null ? _i6.User.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i4.Company?>()) {
+      return (data != null ? _i4.Company.fromJson(data) : null) as T;
+    }
+    if (t == _i1.getType<_i5.Example?>()) {
+      return (data != null ? _i5.Example.fromJson(data) : null) as T;
+    }
+    if (t == _i1.getType<_i6.JwtPayload?>()) {
+      return (data != null ? _i6.JwtPayload.fromJson(data) : null) as T;
+    }
+    if (t == _i1.getType<_i7.User?>()) {
+      return (data != null ? _i7.User.fromJson(data) : null) as T;
+    }
+    if (t == _i1.getType<_i8.UserError?>()) {
+      return (data != null ? _i8.UserError.fromJson(data) : null) as T;
     }
     if (t == List<String>) {
       return (data as List).map((e) => deserialize<String>(e)).toList()
           as dynamic;
     }
+    try {
+      return _i9.Protocol().deserialize<T>(data, t);
+    } on _i1.DeserializationTypeNotFoundException catch (_) {}
     return super.deserialize<T>(data, t);
   }
 
   @override
   String? getClassNameForObject(Object data) {
-    if (data is _i2.AuthResponse) {
+    String? className;
+    className = _i9.Protocol().getClassNameForObject(data);
+    if (className != null) {
+      return 'serverpod_auth.$className';
+    }
+    if (data is _i2.AuthException) {
+      return 'AuthException';
+    }
+    if (data is _i3.AuthResponse) {
       return 'AuthResponse';
     }
-    if (data is _i3.Company) {
+    if (data is _i4.Company) {
       return 'Company';
     }
-    if (data is _i4.Example) {
+    if (data is _i5.Example) {
       return 'Example';
     }
-    if (data is _i5.JwtPayload) {
+    if (data is _i6.JwtPayload) {
       return 'JwtPayload';
     }
-    if (data is _i6.User) {
+    if (data is _i7.User) {
       return 'User';
+    }
+    if (data is _i8.UserError) {
+      return 'UserError';
     }
     return super.getClassNameForObject(data);
   }
 
   @override
   dynamic deserializeByClassName(Map<String, dynamic> data) {
+    if (data['className'].startsWith('serverpod_auth.')) {
+      data['className'] = data['className'].substring(15);
+      return _i9.Protocol().deserializeByClassName(data);
+    }
+    if (data['className'] == 'AuthException') {
+      return deserialize<_i2.AuthException>(data['data']);
+    }
     if (data['className'] == 'AuthResponse') {
-      return deserialize<_i2.AuthResponse>(data['data']);
+      return deserialize<_i3.AuthResponse>(data['data']);
     }
     if (data['className'] == 'Company') {
-      return deserialize<_i3.Company>(data['data']);
+      return deserialize<_i4.Company>(data['data']);
     }
     if (data['className'] == 'Example') {
-      return deserialize<_i4.Example>(data['data']);
+      return deserialize<_i5.Example>(data['data']);
     }
     if (data['className'] == 'JwtPayload') {
-      return deserialize<_i5.JwtPayload>(data['data']);
+      return deserialize<_i6.JwtPayload>(data['data']);
     }
     if (data['className'] == 'User') {
-      return deserialize<_i6.User>(data['data']);
+      return deserialize<_i7.User>(data['data']);
+    }
+    if (data['className'] == 'UserError') {
+      return deserialize<_i8.UserError>(data['data']);
     }
     return super.deserializeByClassName(data);
   }

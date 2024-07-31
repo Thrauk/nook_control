@@ -14,11 +14,20 @@ class UserEndpoit extends Endpoint {
   Future<AuthResponse> login(Session session, User user) async {
     final bool result = SqliteService().checkUserPassword(user);
     print("User ${user.username} logged in ${result ? 'successfully' : 'unsucessfully'}");
+
+    if (!result) {
+      throw AuthException(
+        message: 'Username or password is incorrect!',
+        errorType: UserError.invalidLogin,
+      );
+    }
+
     if (result) {
       final int userId = SqliteService().getUserId(user);
       final String token = JwtRepository().createToken(user.copyWith(id: userId));
       return AuthResponse(success: true, token: token);
     }
+
     return AuthResponse(success: false);
   }
 }
