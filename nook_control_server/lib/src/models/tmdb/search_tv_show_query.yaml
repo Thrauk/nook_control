@@ -1,0 +1,6 @@
+class: SearchTvShowQuery
+fields:
+  query: String,
+  includeAdult: bool?,
+  page: int,
+  year: int?

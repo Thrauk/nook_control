@@ -4,6 +4,8 @@ example:
   - hello:
 resourceTest:
   - register:
+tvShows:
+  - searchShows:
 userEndpoit:
   - register:
   - login:

@@ -1,0 +1,6 @@
+class: TVListResponseTMDB
+fields:
+  page: int,
+  results: List<TVListItemTMDB>,
+  total_pages: int,
+  total_results: int

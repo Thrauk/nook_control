@@ -17,13 +17,20 @@ import 'auth_response.dart' as _i5;
 import 'company.dart' as _i6;
 import 'example.dart' as _i7;
 import 'jwt_payload.dart' as _i8;
-import 'user.dart' as _i9;
-import 'user_error.dart' as _i10;
+import 'tmdb/search_tv_show_query.dart' as _i9;
+import 'tmdb/tv_list_item_tmdb.dart' as _i10;
+import 'tmdb/tv_list_response_tmdb.dart' as _i11;
+import 'user.dart' as _i12;
+import 'user_error.dart' as _i13;
+import 'protocol.dart' as _i14;
 export 'auth_exception.dart';
 export 'auth_response.dart';
 export 'company.dart';
 export 'example.dart';
 export 'jwt_payload.dart';
+export 'tmdb/search_tv_show_query.dart';
+export 'tmdb/tv_list_item_tmdb.dart';
+export 'tmdb/tv_list_response_tmdb.dart';
 export 'user.dart';
 export 'user_error.dart';
 
@@ -60,11 +67,20 @@ class Protocol extends _i1.SerializationManagerServer {
     if (t == _i8.JwtPayload) {
       return _i8.JwtPayload.fromJson(data) as T;
     }
-    if (t == _i9.User) {
-      return _i9.User.fromJson(data) as T;
+    if (t == _i9.SearchTvShowQuery) {
+      return _i9.SearchTvShowQuery.fromJson(data) as T;
     }
-    if (t == _i10.UserError) {
-      return _i10.UserError.fromJson(data) as T;
+    if (t == _i10.TVListItemTMDB) {
+      return _i10.TVListItemTMDB.fromJson(data) as T;
+    }
+    if (t == _i11.TVListResponseTMDB) {
+      return _i11.TVListResponseTMDB.fromJson(data) as T;
+    }
+    if (t == _i12.User) {
+      return _i12.User.fromJson(data) as T;
+    }
+    if (t == _i13.UserError) {
+      return _i13.UserError.fromJson(data) as T;
     }
     if (t == _i1.getType<_i4.AuthException?>()) {
       return (data != null ? _i4.AuthException.fromJson(data) : null) as T;
@@ -81,15 +97,33 @@ class Protocol extends _i1.SerializationManagerServer {
     if (t == _i1.getType<_i8.JwtPayload?>()) {
       return (data != null ? _i8.JwtPayload.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i9.User?>()) {
-      return (data != null ? _i9.User.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i9.SearchTvShowQuery?>()) {
+      return (data != null ? _i9.SearchTvShowQuery.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i10.UserError?>()) {
-      return (data != null ? _i10.UserError.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i10.TVListItemTMDB?>()) {
+      return (data != null ? _i10.TVListItemTMDB.fromJson(data) : null) as T;
+    }
+    if (t == _i1.getType<_i11.TVListResponseTMDB?>()) {
+      return (data != null ? _i11.TVListResponseTMDB.fromJson(data) : null)
+          as T;
+    }
+    if (t == _i1.getType<_i12.User?>()) {
+      return (data != null ? _i12.User.fromJson(data) : null) as T;
+    }
+    if (t == _i1.getType<_i13.UserError?>()) {
+      return (data != null ? _i13.UserError.fromJson(data) : null) as T;
     }
     if (t == List<String>) {
       return (data as List).map((e) => deserialize<String>(e)).toList()
           as dynamic;
+    }
+    if (t == List<int>) {
+      return (data as List).map((e) => deserialize<int>(e)).toList() as dynamic;
+    }
+    if (t == List<_i14.TVListItemTMDB>) {
+      return (data as List)
+          .map((e) => deserialize<_i14.TVListItemTMDB>(e))
+          .toList() as dynamic;
     }
     try {
       return _i3.Protocol().deserialize<T>(data, t);
@@ -122,10 +156,19 @@ class Protocol extends _i1.SerializationManagerServer {
     if (data is _i8.JwtPayload) {
       return 'JwtPayload';
     }
-    if (data is _i9.User) {
+    if (data is _i9.SearchTvShowQuery) {
+      return 'SearchTvShowQuery';
+    }
+    if (data is _i10.TVListItemTMDB) {
+      return 'TVListItemTMDB';
+    }
+    if (data is _i11.TVListResponseTMDB) {
+      return 'TVListResponseTMDB';
+    }
+    if (data is _i12.User) {
       return 'User';
     }
-    if (data is _i10.UserError) {
+    if (data is _i13.UserError) {
       return 'UserError';
     }
     return super.getClassNameForObject(data);
@@ -152,11 +195,20 @@ class Protocol extends _i1.SerializationManagerServer {
     if (data['className'] == 'JwtPayload') {
       return deserialize<_i8.JwtPayload>(data['data']);
     }
+    if (data['className'] == 'SearchTvShowQuery') {
+      return deserialize<_i9.SearchTvShowQuery>(data['data']);
+    }
+    if (data['className'] == 'TVListItemTMDB') {
+      return deserialize<_i10.TVListItemTMDB>(data['data']);
+    }
+    if (data['className'] == 'TVListResponseTMDB') {
+      return deserialize<_i11.TVListResponseTMDB>(data['data']);
+    }
     if (data['className'] == 'User') {
-      return deserialize<_i9.User>(data['data']);
+      return deserialize<_i12.User>(data['data']);
     }
     if (data['className'] == 'UserError') {
-      return deserialize<_i10.UserError>(data['data']);
+      return deserialize<_i13.UserError>(data['data']);
     }
     return super.deserializeByClassName(data);
   }

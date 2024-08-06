@@ -28,7 +28,10 @@ class _MainMenuWidgetState extends State<MainMenuWidget> {
           child: Column(
             children: [
               ElevatedButton(
-                onPressed: () async {},
+                onPressed: () async {
+                  final response = await client.tvShows.searchShows(SearchTvShowQuery(query: 'Vikings', page: 1));
+                  print(response);
+                },
                 child: const Text('Test Endpoint'),
               ),
               ElevatedButton(

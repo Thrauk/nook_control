@@ -12,10 +12,13 @@ import 'package:serverpod/serverpod.dart' as _i1;
 import '../endpoints/company_endpoint.dart' as _i2;
 import '../endpoints/example_endpoint.dart' as _i3;
 import '../endpoints/resource_test_endpoint.dart' as _i4;
-import '../endpoints/user_endpoit.dart' as _i5;
-import 'package:nook_control_server/src/generated/company.dart' as _i6;
-import 'package:nook_control_server/src/generated/user.dart' as _i7;
-import 'package:serverpod_auth_server/serverpod_auth_server.dart' as _i8;
+import '../endpoints/search_tv_show_endpoint.dart' as _i5;
+import '../endpoints/user_endpoit.dart' as _i6;
+import 'package:nook_control_server/src/generated/company.dart' as _i7;
+import 'package:nook_control_server/src/generated/user.dart' as _i8;
+import 'package:nook_control_server/src/generated/tmdb/search_tv_show_query.dart'
+    as _i9;
+import 'package:serverpod_auth_server/serverpod_auth_server.dart' as _i10;
 
 class Endpoints extends _i1.EndpointDispatch {
   @override
@@ -39,7 +42,13 @@ class Endpoints extends _i1.EndpointDispatch {
           'resourceTest',
           null,
         ),
-      'userEndpoit': _i5.UserEndpoit()
+      'tvShows': _i5.TvShowsEndpoint()
+        ..initialize(
+          server,
+          'tvShows',
+          null,
+        ),
+      'userEndpoit': _i6.UserEndpoit()
         ..initialize(
           server,
           'userEndpoit',
@@ -55,7 +64,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'company': _i1.ParameterDescription(
               name: 'company',
-              type: _i1.getType<_i6.Company>(),
+              type: _i1.getType<_i7.Company>(),
               nullable: false,
             )
           },
@@ -103,7 +112,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'user': _i1.ParameterDescription(
               name: 'user',
-              type: _i1.getType<_i7.User>(),
+              type: _i1.getType<_i8.User>(),
               nullable: false,
             )
           },
@@ -118,6 +127,30 @@ class Endpoints extends _i1.EndpointDispatch {
         )
       },
     );
+    connectors['tvShows'] = _i1.EndpointConnector(
+      name: 'tvShows',
+      endpoint: endpoints['tvShows']!,
+      methodConnectors: {
+        'searchShows': _i1.MethodConnector(
+          name: 'searchShows',
+          params: {
+            'query': _i1.ParameterDescription(
+              name: 'query',
+              type: _i1.getType<_i9.SearchTvShowQuery>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['tvShows'] as _i5.TvShowsEndpoint).searchShows(
+            session,
+            params['query'],
+          ),
+        )
+      },
+    );
     connectors['userEndpoit'] = _i1.EndpointConnector(
       name: 'userEndpoit',
       endpoint: endpoints['userEndpoit']!,
@@ -127,7 +160,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'user': _i1.ParameterDescription(
               name: 'user',
-              type: _i1.getType<_i7.User>(),
+              type: _i1.getType<_i8.User>(),
               nullable: false,
             )
           },
@@ -135,7 +168,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['userEndpoit'] as _i5.UserEndpoit).register(
+              (endpoints['userEndpoit'] as _i6.UserEndpoit).register(
             session,
             params['user'],
           ),
@@ -145,7 +178,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'user': _i1.ParameterDescription(
               name: 'user',
-              type: _i1.getType<_i7.User>(),
+              type: _i1.getType<_i8.User>(),
               nullable: false,
             )
           },
@@ -153,13 +186,13 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['userEndpoit'] as _i5.UserEndpoit).login(
+              (endpoints['userEndpoit'] as _i6.UserEndpoit).login(
             session,
             params['user'],
           ),
         ),
       },
     );
-    modules['serverpod_auth'] = _i8.Endpoints()..initializeEndpoints(server);
+    modules['serverpod_auth'] = _i10.Endpoints()..initializeEndpoints(server);
   }
 }

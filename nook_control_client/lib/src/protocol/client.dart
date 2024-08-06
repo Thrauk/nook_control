@@ -12,9 +12,13 @@ import 'package:serverpod_client/serverpod_client.dart' as _i1;
 import 'dart:async' as _i2;
 import 'package:nook_control_client/src/protocol/company.dart' as _i3;
 import 'package:nook_control_client/src/protocol/user.dart' as _i4;
-import 'package:nook_control_client/src/protocol/auth_response.dart' as _i5;
-import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i6;
-import 'protocol.dart' as _i7;
+import 'package:nook_control_client/src/protocol/tmdb/tv_list_response_tmdb.dart'
+    as _i5;
+import 'package:nook_control_client/src/protocol/tmdb/search_tv_show_query.dart'
+    as _i6;
+import 'package:nook_control_client/src/protocol/auth_response.dart' as _i7;
+import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i8;
+import 'protocol.dart' as _i9;
 
 /// {@category Endpoint}
 class EndpointCompany extends _i1.EndpointRef {
@@ -60,6 +64,21 @@ class EndpointResourceTest extends _i1.EndpointRef {
 }
 
 /// {@category Endpoint}
+class EndpointTvShows extends _i1.EndpointRef {
+  EndpointTvShows(_i1.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'tvShows';
+
+  _i2.Future<_i5.TVListResponseTMDB> searchShows(_i6.SearchTvShowQuery query) =>
+      caller.callServerEndpoint<_i5.TVListResponseTMDB>(
+        'tvShows',
+        'searchShows',
+        {'query': query},
+      );
+}
+
+/// {@category Endpoint}
 class EndpointUserEndpoit extends _i1.EndpointRef {
   EndpointUserEndpoit(_i1.EndpointCaller caller) : super(caller);
 
@@ -72,8 +91,8 @@ class EndpointUserEndpoit extends _i1.EndpointRef {
         {'user': user},
       );
 
-  _i2.Future<_i5.AuthResponse> login(_i4.User user) =>
-      caller.callServerEndpoint<_i5.AuthResponse>(
+  _i2.Future<_i7.AuthResponse> login(_i4.User user) =>
+      caller.callServerEndpoint<_i7.AuthResponse>(
         'userEndpoit',
         'login',
         {'user': user},
@@ -82,10 +101,10 @@ class EndpointUserEndpoit extends _i1.EndpointRef {
 
 class _Modules {
   _Modules(Client client) {
-    auth = _i6.Caller(client);
+    auth = _i8.Caller(client);
   }
 
-  late final _i6.Caller auth;
+  late final _i8.Caller auth;
 }
 
 class Client extends _i1.ServerpodClient {
@@ -103,7 +122,7 @@ class Client extends _i1.ServerpodClient {
     Function(_i1.MethodCallContext)? onSucceededCall,
   }) : super(
           host,
-          _i7.Protocol(),
+          _i9.Protocol(),
           securityContext: securityContext,
           authenticationKeyManager: authenticationKeyManager,
           streamingConnectionTimeout: streamingConnectionTimeout,
@@ -114,6 +133,7 @@ class Client extends _i1.ServerpodClient {
     company = EndpointCompany(this);
     example = EndpointExample(this);
     resourceTest = EndpointResourceTest(this);
+    tvShows = EndpointTvShows(this);
     userEndpoit = EndpointUserEndpoit(this);
     modules = _Modules(this);
   }
@@ -124,6 +144,8 @@ class Client extends _i1.ServerpodClient {
 
   late final EndpointResourceTest resourceTest;
 
+  late final EndpointTvShows tvShows;
+
   late final EndpointUserEndpoit userEndpoit;
 
   late final _Modules modules;
@@ -133,6 +155,7 @@ class Client extends _i1.ServerpodClient {
         'company': company,
         'example': example,
         'resourceTest': resourceTest,
+        'tvShows': tvShows,
         'userEndpoit': userEndpoit,
       };
 

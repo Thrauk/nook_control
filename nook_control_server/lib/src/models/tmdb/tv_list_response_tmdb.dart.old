@@ -1,0 +1,36 @@
+import 'package:nook_control_server/src/models/tmdb/tv_list_item_tmdb.dart.old';
+
+class TVListResponseTMDB {
+  final int page;
+  final List<TVListItemTMDB> results;
+  final int totalPages;
+  final int totalResults;
+
+  TVListResponseTMDB({
+    required this.page,
+    required this.results,
+    required this.totalPages,
+    required this.totalResults,
+  });
+
+  factory TVListResponseTMDB.fromJson(Map<String, dynamic> json) {
+    var resultsList = json['results'] as List;
+    List<TVListItemTMDB> tvShows = resultsList.map((i) => TVListItemTMDB.fromJson(i)).toList();
+
+    return TVListResponseTMDB(
+      page: json['page'],
+      results: tvShows,
+      totalPages: json['total_pages'],
+      totalResults: json['total_results'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'page': page,
+      'results': results.map((tvShow) => tvShow.toJson()).toList(),
+      'total_pages': totalPages,
+      'total_results': totalResults,
+    };
+  }
+}

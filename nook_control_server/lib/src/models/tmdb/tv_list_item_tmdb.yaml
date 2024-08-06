@@ -1,0 +1,16 @@
+class: TVListItemTMDB
+fields:
+  adult: bool,
+  backdrop_path: String?,
+  genre_ids: List<int>,
+  id: int,
+  origin_country: List<String>,
+  original_language: String?,
+  original_name: String,
+  overview: String,
+  popularity: double,
+  poster_path: String?,
+  first_air_date: String,
+  name: String,
+  vote_average: double,
+  vote_count: int
