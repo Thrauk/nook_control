@@ -47,6 +47,12 @@ class _SearchTvShowsWidgetState extends State<SearchTvShowsWidget> {
                   'Search',
                 ),
               ),
+              ElevatedButton(
+                onPressed: () async {
+                  await client.authenticationKeyManager?.remove();
+                },
+                child: const Text('Log Out'),
+              ),
             ],
           ),
           Wrap(
