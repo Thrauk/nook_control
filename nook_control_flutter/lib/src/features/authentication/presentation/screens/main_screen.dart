@@ -34,6 +34,6 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: const SearchTvShowsWidget());
+    return Scaffold(body: const MainMenuWidget());
   }
 }

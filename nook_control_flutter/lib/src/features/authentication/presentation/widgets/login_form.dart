@@ -33,41 +33,64 @@ class _LoginFormState extends State<LoginForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: SizedBox(
-          width: 500,
-          child: Column(
-            children: [
-              const Text(
-                'Username',
-              ),
-              TextFormField(
-                controller: _usernameController,
-              ),
-              const Text(
-                'Password',
-              ),
-              TextFormField(
-                controller: _passwordController,
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  try {
-                    final AuthResponse authResponse = await client.userEndpoit.login(
-                      User(
-                        username: _usernameController.text,
-                        password: _encrypt256(_passwordController.text),
-                      ),
-                    );
-                    await client.authenticationKeyManager?.put(authResponse.token!);
-                    // mainRouter.refresh();
-                  } on AuthException catch (e) {
-                    print('Error on auth ');
-                  }
-                },
-                child: const Text('Login'),
-              ),
+      body: Container(
+        height: double.infinity,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            colors: [
+              Colors.black87,
+              Colors.greenAccent,
+              Colors.black,
             ],
+          ),
+        ),
+        child: Center(
+          child: SizedBox(
+            width: 500,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  'Username',
+                ),
+                TextFormField(
+                  controller: _usernameController,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                const Text(
+                  'Password',
+                ),
+                TextFormField(
+                  controller: _passwordController,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    try {
+                      final AuthResponse authResponse = await serverpodClient.userEndpoit.login(
+                        User(
+                          username: _usernameController.text,
+                          password: _encrypt256(_passwordController.text),
+                        ),
+                      );
+                      await serverpodClient.authenticationKeyManager?.put(authResponse.token!);
+                      // mainRouter.refresh();
+                    } on AuthException catch (e) {
+                      print('Error on auth ');
+                    }
+                  },
+                  child: const Text('Login'),
+                ),
+              ],
+            ),
           ),
         ),
       ),

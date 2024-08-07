@@ -52,7 +52,7 @@ class _RegisterFormState extends State<RegisterForm> {
               ),
               ElevatedButton(
                 onPressed: () async {
-                  await client.userEndpoit.register(
+                  await serverpodClient.userEndpoit.register(
                     User(
                       username: _usernameController.text,
                       password: _encrypt256(_passwordController.text),

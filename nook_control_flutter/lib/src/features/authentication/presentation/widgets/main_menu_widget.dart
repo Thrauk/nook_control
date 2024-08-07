@@ -29,14 +29,14 @@ class _MainMenuWidgetState extends State<MainMenuWidget> {
             children: [
               ElevatedButton(
                 onPressed: () async {
-                  final response = await client.tvShows.searchShows(SearchTvShowQuery(query: 'Vikings', page: 1));
+                  final response = await serverpodClient.tvShows.searchShows(SearchTvShowQuery(query: 'Vikings', page: 1));
                   print(response);
                 },
                 child: const Text('Test Endpoint'),
               ),
               ElevatedButton(
                 onPressed: () async {
-                  await client.authenticationKeyManager?.remove();
+                  await serverpodClient.authenticationKeyManager?.remove();
                 },
                 child: const Text('Log Out'),
               ),

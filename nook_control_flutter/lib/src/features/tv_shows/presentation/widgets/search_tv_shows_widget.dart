@@ -35,7 +35,7 @@ class _SearchTvShowsWidgetState extends State<SearchTvShowsWidget> {
               ),
               ElevatedButton(
                 onPressed: () async {
-                  response = await client.tvShows.searchShows(
+                  response = await serverpodClient.tvShows.searchShows(
                     SearchTvShowQuery(
                       query: _searchQueryController.text,
                       page: 1,
@@ -49,7 +49,7 @@ class _SearchTvShowsWidgetState extends State<SearchTvShowsWidget> {
               ),
               ElevatedButton(
                 onPressed: () async {
-                  await client.authenticationKeyManager?.remove();
+                  await serverpodClient.authenticationKeyManager?.remove();
                 },
                 child: const Text('Log Out'),
               ),
