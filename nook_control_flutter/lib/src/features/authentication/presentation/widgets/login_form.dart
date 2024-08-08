@@ -5,6 +5,9 @@ import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:nook_control_client/nook_control_client.dart';
 import 'package:nook_control_flutter/main.dart';
+import 'package:nook_control_flutter/src/core/styles/colors.dart';
+import 'package:nook_control_flutter/src/core/styles/text_styles.dart';
+import 'package:nook_control_flutter/src/core/widgets/at_text_field.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -36,61 +39,98 @@ class _LoginFormState extends State<LoginForm> {
       body: Container(
         height: double.infinity,
         width: double.infinity,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-            colors: [
-              Colors.black87,
-              Colors.greenAccent,
-              Colors.black,
-            ],
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/background/auth_background.png"),
+            fit: BoxFit.cover,
           ),
         ),
         child: Center(
-          child: SizedBox(
-            width: 500,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
-                  'Username',
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // Text(
+              //   'N00KA Control\nServer',
+              //   textAlign: TextAlign.center,
+              //   style: ATTextStyles.h1(),
+              // ),
+              const SizedBox(
+                height: 10,
+              ),
+              Container(
+                width: 350,
+                height: 500,
+                decoration: BoxDecoration(
+                  color: ATColors.darkGrey.withOpacity(0.9),
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(
+                      8.0,
+                    ),
+                  ),
                 ),
-                TextFormField(
-                  controller: _usernameController,
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                const Text(
-                  'Password',
-                ),
-                TextFormField(
-                  controller: _passwordController,
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                ElevatedButton(
-                  onPressed: () async {
-                    try {
-                      final AuthResponse authResponse = await serverpodClient.userEndpoit.login(
-                        User(
-                          username: _usernameController.text,
-                          password: _encrypt256(_passwordController.text),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Spacer(),
+                      Text(
+                        'Account Login',
+                        style: ATTextStyles.h2(color: ATColors.orange),
+                      ),
+                      const Spacer(),
+                      ATTextField(
+                        controller: _usernameController,
+                        label: 'Username',
+                        labelUnfocusedColor: ATColors.orange,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      ATTextField(
+                        controller: _passwordController,
+                        label: 'Password',
+                        labelUnfocusedColor: ATColors.orange,
+                      ),
+                      const Spacer(),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: ATColors.orange,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                          ),
+                          onPressed: () async {
+                            try {
+                              final AuthResponse authResponse = await serverpodClient.userEndpoit.login(
+                                User(
+                                  username: _usernameController.text,
+                                  password: _encrypt256(_passwordController.text),
+                                ),
+                              );
+                              await serverpodClient.authenticationKeyManager?.put(authResponse.token!);
+                              // mainRouter.refresh();
+                            } on AuthException catch (e) {
+                              print('Error on auth ');
+                            }
+                          },
+                          child: Text(
+                            'Login',
+                            style: ATTextStyles.body(
+                              color: Colors.white,
+                            ),
+                          ),
                         ),
-                      );
-                      await serverpodClient.authenticationKeyManager?.put(authResponse.token!);
-                      // mainRouter.refresh();
-                    } on AuthException catch (e) {
-                      print('Error on auth ');
-                    }
-                  },
-                  child: const Text('Login'),
+                      ),
+                      Spacer(),
+                    ],
+                  ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
