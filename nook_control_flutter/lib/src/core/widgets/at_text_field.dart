@@ -120,6 +120,9 @@ class _ATTextFieldState extends State<ATTextField> with SingleTickerProviderStat
             ),
           ),
         SizedBox(
+          height: 4,
+        ),
+        SizedBox(
           height: 35,
           child: TextFormField(
             enabled: widget.enabled,
@@ -134,7 +137,7 @@ class _ATTextFieldState extends State<ATTextField> with SingleTickerProviderStat
             style: ATTextStyles.small12(),
             cursorColor: ATColors.light80,
             decoration: InputDecoration(
-              contentPadding: EdgeInsets.symmetric(
+              contentPadding: const EdgeInsets.symmetric(
                 horizontal: 12,
                 vertical: 12,
               ),
@@ -149,14 +152,14 @@ class _ATTextFieldState extends State<ATTextField> with SingleTickerProviderStat
                 borderRadius: BorderRadius.all(Radius.circular(widget.borderRadius)),
                 borderSide: const BorderSide(
                   color: ATColors.light80,
-                  width: 2,
+                  width: 1,
                 ),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(widget.borderRadius)),
                 borderSide: const BorderSide(
                   color: ATColors.blue,
-                  width: 2,
+                  width: 1,
                 ),
               ),
             ),
