@@ -7,6 +7,7 @@ import 'package:serverpod/serverpod.dart';
 class ResourceTestEndpoint extends Endpoint {
   @override
   bool get requireLogin => true;
+  
 
   Future<bool> register(Session session, User user) async {
     return true;

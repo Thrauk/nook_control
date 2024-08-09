@@ -112,7 +112,6 @@ class _LoginFormState extends State<LoginForm> {
                                 ),
                               );
                               await serverpodClient.authenticationKeyManager?.put(authResponse.token!);
-                              // mainRouter.refresh();
                             } on AuthException catch (e) {
                               print('Error on auth ');
                             }

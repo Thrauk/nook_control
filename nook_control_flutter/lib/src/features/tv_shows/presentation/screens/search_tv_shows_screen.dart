@@ -4,8 +4,8 @@ import 'package:nook_control_flutter/src/features/authentication/presentation/wi
 import 'package:nook_control_flutter/src/features/authentication/presentation/widgets/main_menu_widget.dart';
 import 'package:nook_control_flutter/src/features/tv_shows/presentation/widgets/search_tv_shows_widget.dart';
 
-class SearchTvShowsSceen extends StatelessWidget {
-  const SearchTvShowsSceen({super.key});
+class SearchTvShowsScreen extends StatelessWidget {
+  const SearchTvShowsScreen({super.key});
 
   static const String route = '/shows';
   static const String fullPath = '/shows';
@@ -29,7 +29,7 @@ class SearchTvShowsSceen extends StatelessWidget {
   }
 
   static Widget builder(BuildContext context, GoRouterState state) {
-    return const SearchTvShowsSceen();
+    return const SearchTvShowsScreen();
   }
 
   @override

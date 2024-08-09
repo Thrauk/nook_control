@@ -1,10 +1,18 @@
+import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nook_control_flutter/main.dart';
+import 'package:nook_control_flutter/src/core/widgets/desktop_navbar.dart';
 import 'package:nook_control_flutter/src/features/authentication/presentation/screens/login_screen.dart';
 import 'package:nook_control_flutter/src/features/authentication/presentation/screens/main_screen.dart';
 import 'package:nook_control_flutter/src/features/authentication/presentation/screens/register_screen.dart';
+import 'package:nook_control_flutter/src/features/tv_shows/presentation/screens/search_tv_shows_screen.dart';
+
+final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
+
+final GlobalKey<NavigatorState> _shellNavbarKey = GlobalKey<NavigatorState>(debugLabel: 'navbarShell');
 
 final GoRouter mainRouter = GoRouter(
+  navigatorKey: _rootNavigatorKey,
   initialLocation: '/',
   routes: [
     GoRoute(
@@ -20,9 +28,21 @@ final GoRouter mainRouter = GoRouter(
       path: RegisterScreen.route,
       builder: (context, state) => const RegisterScreen(),
     ),
-    GoRoute(
-      path: MainScreen.route,
-      builder: (context, state) => const MainScreen(),
+    ShellRoute(
+      navigatorKey: _shellNavbarKey,
+      builder: (context, state, child) {
+        return DesktopNavbar(state: state, child: child);
+      },
+      routes: [
+        GoRoute(
+          path: MainScreen.route,
+          builder: (context, state) => const MainScreen(),
+        ),
+        GoRoute(
+          path: SearchTvShowsScreen.route,
+          builder: (context, state) => const SearchTvShowsScreen(),
+        ),
+      ],
     ),
   ],
   redirect: (context, state) async {

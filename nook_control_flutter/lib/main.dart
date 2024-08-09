@@ -29,6 +29,7 @@ late SessionManager sessionManager;
 
 void main() async {
   setPathUrlStrategy();
+  GoRouter.optionURLReflectsImperativeAPIs = true;
   authManager.addListener(
     () {
       print('Something happened!');
