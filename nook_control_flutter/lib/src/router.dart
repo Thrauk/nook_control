@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nook_control_flutter/main.dart';
-import 'package:nook_control_flutter/src/core/widgets/desktop_navbar.dart';
+import 'package:nook_control_flutter/src/core/widgets/navbar/desktop_navbar.dart';
 import 'package:nook_control_flutter/src/features/authentication/presentation/screens/login_screen.dart';
 import 'package:nook_control_flutter/src/features/authentication/presentation/screens/main_screen.dart';
 import 'package:nook_control_flutter/src/features/authentication/presentation/screens/register_screen.dart';
@@ -29,18 +29,18 @@ final GoRouter mainRouter = GoRouter(
       builder: (context, state) => const RegisterScreen(),
     ),
     ShellRoute(
-      navigatorKey: _shellNavbarKey,
+      // navigatorKey: _shellNavbarKey,
       builder: (context, state, child) {
         return DesktopNavbar(state: state, child: child);
       },
       routes: [
         GoRoute(
           path: MainScreen.route,
-          builder: (context, state) => const MainScreen(),
+          pageBuilder: (context, state) => const NoTransitionPage(child: MainScreen()),
         ),
         GoRoute(
           path: SearchTvShowsScreen.route,
-          builder: (context, state) => const SearchTvShowsScreen(),
+          pageBuilder: (context, state) => NoTransitionPage(child: SearchTvShowsScreen.builder(context, state)),
         ),
       ],
     ),

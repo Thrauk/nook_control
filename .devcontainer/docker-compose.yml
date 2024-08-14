@@ -1,0 +1,14 @@
+services:
+  alice:
+    build: . # Build the image from the Dockerfile in the current directory
+    ports:
+      - "8080:8080"
+    volumes:
+      - ..:/app:delegated
+      - /app/nook_control_client/.dart_tool
+      - /app/nook_control_flutter/.dart_tool
+      - /app/nook_control_server/.dart_tool
+    stdin_open: true # Keep stdin open to allow interactive mode
+    tty: true        # Allocate a pseudo-TTY
+    command: ["bash"]
+    init: true       # Run the container as an init process

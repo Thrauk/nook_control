@@ -1,0 +1,25 @@
+{
+    "name": "Dev Container",
+    "dockerComposeFile": [
+        "./docker-compose.yml"
+    ],
+    "service": "alice",
+    "workspaceFolder": "/app",
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "terminal.integrated.shell.linux": "/bin/bash"
+            },
+            "extensions": [
+                "dart-code.dart-code",
+                "dart-code.flutter",
+                "serverpod.serverpod"
+            ]
+        }
+    },
+    "forwardPorts": [
+        8080
+    ],
+    "remoteUser": "root",
+    "postCreateCommand": "dart pub global activate serverpod_cli && cd /app/nook_control_client && dart pub get && cd /app/nook_control_flutter && dart pub get && cd /app/nook_control_server && dart pub get"
+}

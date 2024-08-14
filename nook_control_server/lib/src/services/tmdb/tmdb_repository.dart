@@ -26,11 +26,11 @@ class TMDBRepository {
         "Authorization": "Bearer $_tmdbToken",
       };
     } catch (e) {
-      throw Exception('ENV doesn\'t TMDB token!');
+      throw Exception('ENV doesn\'t contain a TMDB token!');
     }
   }
 
-  Future<TVListResponseTMDB> searchTVShows(SearchTvShowQuery tvShowQuery) async {
+  Future<TVListResponseTMDB> searchTVShows(SearchQuery tvShowQuery) async {
     const String path = '/3/search/tv';
     Map<String, dynamic> queryParams = {
       'query': tvShowQuery.query,

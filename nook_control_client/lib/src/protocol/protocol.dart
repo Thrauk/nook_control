@@ -15,9 +15,9 @@ import 'auth_response.dart' as _i3;
 import 'company.dart' as _i4;
 import 'example.dart' as _i5;
 import 'jwt_payload.dart' as _i6;
-import 'tmdb/search_tv_show_query.dart' as _i7;
-import 'tmdb/tv_list_item_tmdb.dart' as _i8;
-import 'tmdb/tv_list_response_tmdb.dart' as _i9;
+import 'tmdb/search/search_query.dart' as _i7;
+import 'tmdb/search/tv/tv_list_item_tmdb.dart' as _i8;
+import 'tmdb/search/tv/tv_list_response_tmdb.dart' as _i9;
 import 'user.dart' as _i10;
 import 'user_error.dart' as _i11;
 import 'protocol.dart' as _i12;
@@ -27,9 +27,9 @@ export 'auth_response.dart';
 export 'company.dart';
 export 'example.dart';
 export 'jwt_payload.dart';
-export 'tmdb/search_tv_show_query.dart';
-export 'tmdb/tv_list_item_tmdb.dart';
-export 'tmdb/tv_list_response_tmdb.dart';
+export 'tmdb/search/search_query.dart';
+export 'tmdb/search/tv/tv_list_item_tmdb.dart';
+export 'tmdb/search/tv/tv_list_response_tmdb.dart';
 export 'user.dart';
 export 'user_error.dart';
 export 'client.dart';
@@ -62,8 +62,8 @@ class Protocol extends _i1.SerializationManager {
     if (t == _i6.JwtPayload) {
       return _i6.JwtPayload.fromJson(data) as T;
     }
-    if (t == _i7.SearchTvShowQuery) {
-      return _i7.SearchTvShowQuery.fromJson(data) as T;
+    if (t == _i7.SearchQuery) {
+      return _i7.SearchQuery.fromJson(data) as T;
     }
     if (t == _i8.TVListItemTMDB) {
       return _i8.TVListItemTMDB.fromJson(data) as T;
@@ -92,8 +92,8 @@ class Protocol extends _i1.SerializationManager {
     if (t == _i1.getType<_i6.JwtPayload?>()) {
       return (data != null ? _i6.JwtPayload.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i7.SearchTvShowQuery?>()) {
-      return (data != null ? _i7.SearchTvShowQuery.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i7.SearchQuery?>()) {
+      return (data != null ? _i7.SearchQuery.fromJson(data) : null) as T;
     }
     if (t == _i1.getType<_i8.TVListItemTMDB?>()) {
       return (data != null ? _i8.TVListItemTMDB.fromJson(data) : null) as T;
@@ -147,8 +147,8 @@ class Protocol extends _i1.SerializationManager {
     if (data is _i6.JwtPayload) {
       return 'JwtPayload';
     }
-    if (data is _i7.SearchTvShowQuery) {
-      return 'SearchTvShowQuery';
+    if (data is _i7.SearchQuery) {
+      return 'SearchQuery';
     }
     if (data is _i8.TVListItemTMDB) {
       return 'TVListItemTMDB';
@@ -186,8 +186,8 @@ class Protocol extends _i1.SerializationManager {
     if (data['className'] == 'JwtPayload') {
       return deserialize<_i6.JwtPayload>(data['data']);
     }
-    if (data['className'] == 'SearchTvShowQuery') {
-      return deserialize<_i7.SearchTvShowQuery>(data['data']);
+    if (data['className'] == 'SearchQuery') {
+      return deserialize<_i7.SearchQuery>(data['data']);
     }
     if (data['className'] == 'TVListItemTMDB') {
       return deserialize<_i8.TVListItemTMDB>(data['data']);

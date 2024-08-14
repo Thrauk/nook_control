@@ -10,6 +10,7 @@ import 'package:nook_control_flutter/src/router.dart';
 import 'package:provider/provider.dart';
 import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart';
 import 'package:serverpod_flutter/serverpod_flutter.dart';
+import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:url_strategy/url_strategy.dart';
 
 // Sets up a singleton client object that can be used to talk to the server from
@@ -54,7 +55,12 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
+    return ShadApp.materialRouter(
+      title: 'N00k Control',
+      darkTheme: ShadThemeData(
+        brightness: Brightness.dark,
+        colorScheme: ShadColorScheme.fromName('orange', brightness: Brightness.dark),
+      ),
       routerConfig: mainRouter,
     );
   }

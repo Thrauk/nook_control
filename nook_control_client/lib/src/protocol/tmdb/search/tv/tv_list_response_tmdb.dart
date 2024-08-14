@@ -8,12 +8,10 @@
 // ignore_for_file: type_literal_in_constant_pattern
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:serverpod/serverpod.dart' as _i1;
-import '../protocol.dart' as _i2;
-import 'package:serverpod_serialization/serverpod_serialization.dart';
+import 'package:serverpod_client/serverpod_client.dart' as _i1;
+import '../../../protocol.dart' as _i2;
 
-abstract class TVListResponseTMDB
-    implements _i1.SerializableModel, _i1.ProtocolSerialization {
+abstract class TVListResponseTMDB implements _i1.SerializableModel {
   TVListResponseTMDB._({
     required this.page,
     required this.results,
@@ -58,16 +56,6 @@ abstract class TVListResponseTMDB
     return {
       'page': page,
       'results': results.toJson(valueToJson: (v) => v.toJson()),
-      'total_pages': total_pages,
-      'total_results': total_results,
-    };
-  }
-
-  @override
-  Map<String, dynamic> toJsonForProtocol() {
-    return {
-      'page': page,
-      'results': results.toJson(valueToJson: (v) => v.toJsonForProtocol()),
       'total_pages': total_pages,
       'total_results': total_results,
     };

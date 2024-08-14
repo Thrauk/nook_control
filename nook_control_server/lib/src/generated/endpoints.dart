@@ -16,7 +16,7 @@ import '../endpoints/search_tv_show_endpoint.dart' as _i5;
 import '../endpoints/user_endpoit.dart' as _i6;
 import 'package:nook_control_server/src/generated/company.dart' as _i7;
 import 'package:nook_control_server/src/generated/user.dart' as _i8;
-import 'package:nook_control_server/src/generated/tmdb/search_tv_show_query.dart'
+import 'package:nook_control_server/src/generated/tmdb/search/search_query.dart'
     as _i9;
 import 'package:serverpod_auth_server/serverpod_auth_server.dart' as _i10;
 
@@ -136,7 +136,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'query': _i1.ParameterDescription(
               name: 'query',
-              type: _i1.getType<_i9.SearchTvShowQuery>(),
+              type: _i1.getType<_i9.SearchQuery>(),
               nullable: false,
             )
           },

@@ -8,25 +8,26 @@
 // ignore_for_file: type_literal_in_constant_pattern
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:serverpod_client/serverpod_client.dart' as _i1;
+import 'package:serverpod/serverpod.dart' as _i1;
 
-abstract class SearchTvShowQuery implements _i1.SerializableModel {
-  SearchTvShowQuery._({
+abstract class SearchQuery
+    implements _i1.SerializableModel, _i1.ProtocolSerialization {
+  SearchQuery._({
     required this.query,
     this.includeAdult,
     required this.page,
     this.year,
   });
 
-  factory SearchTvShowQuery({
+  factory SearchQuery({
     required String query,
     bool? includeAdult,
     required int page,
     int? year,
-  }) = _SearchTvShowQueryImpl;
+  }) = _SearchQueryImpl;
 
-  factory SearchTvShowQuery.fromJson(Map<String, dynamic> jsonSerialization) {
-    return SearchTvShowQuery(
+  factory SearchQuery.fromJson(Map<String, dynamic> jsonSerialization) {
+    return SearchQuery(
       query: jsonSerialization['query'] as String,
       includeAdult: jsonSerialization['includeAdult'] as bool?,
       page: jsonSerialization['page'] as int,
@@ -42,7 +43,7 @@ abstract class SearchTvShowQuery implements _i1.SerializableModel {
 
   int? year;
 
-  SearchTvShowQuery copyWith({
+  SearchQuery copyWith({
     String? query,
     bool? includeAdult,
     int? page,
@@ -59,6 +60,16 @@ abstract class SearchTvShowQuery implements _i1.SerializableModel {
   }
 
   @override
+  Map<String, dynamic> toJsonForProtocol() {
+    return {
+      'query': query,
+      if (includeAdult != null) 'includeAdult': includeAdult,
+      'page': page,
+      if (year != null) 'year': year,
+    };
+  }
+
+  @override
   String toString() {
     return _i1.SerializationManager.encode(this);
   }
@@ -66,8 +77,8 @@ abstract class SearchTvShowQuery implements _i1.SerializableModel {
 
 class _Undefined {}
 
-class _SearchTvShowQueryImpl extends SearchTvShowQuery {
-  _SearchTvShowQueryImpl({
+class _SearchQueryImpl extends SearchQuery {
+  _SearchQueryImpl({
     required String query,
     bool? includeAdult,
     required int page,
@@ -80,13 +91,13 @@ class _SearchTvShowQueryImpl extends SearchTvShowQuery {
         );
 
   @override
-  SearchTvShowQuery copyWith({
+  SearchQuery copyWith({
     String? query,
     Object? includeAdult = _Undefined,
     int? page,
     Object? year = _Undefined,
   }) {
-    return SearchTvShowQuery(
+    return SearchQuery(
       query: query ?? this.query,
       includeAdult: includeAdult is bool? ? includeAdult : this.includeAdult,
       page: page ?? this.page,

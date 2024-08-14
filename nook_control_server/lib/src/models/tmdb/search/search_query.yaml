@@ -1,4 +1,4 @@
-class: SearchTvShowQuery
+class: SearchQuery
 fields:
   query: String,
   includeAdult: bool?,

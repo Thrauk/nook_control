@@ -4,6 +4,7 @@ class ATColors {
   ATColors._();
 
   static const Color darkGrey = Color(0xff373737);
+  static const Color dark = Color(0xff1A1A1A);
 
   static const Color light80 = Color(0xff8D8D8D);
   static const Color lightHintColor = Color(0xff626262);
@@ -15,6 +16,11 @@ class ATColors {
   static const Color yellow = Color(0xffFFED63);
   static const Color red = Color(0xffE53D00);
   static const Color orange = Color(0xffFB6107);
+
+
+  static const Color orangeButtonHover = Color(0xffD14D00);
+  static const Color darkGreyButtonHover = Color(0xff242424);
+
 
   static const Color blue = Color(0xff058ED9);
 }

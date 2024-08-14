@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nook_control_flutter/src/features/authentication/presentation/widgets/login_form.dart';
 import 'package:nook_control_flutter/src/features/authentication/presentation/widgets/main_menu_widget.dart';
-import 'package:nook_control_flutter/src/features/tv_shows/presentation/widgets/search_tv_shows_widget.dart';
+import 'package:nook_control_flutter/src/features/tv_shows/presentation/widgets/search_tv_shows_layout.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});

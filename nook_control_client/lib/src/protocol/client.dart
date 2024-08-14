@@ -12,9 +12,9 @@ import 'package:serverpod_client/serverpod_client.dart' as _i1;
 import 'dart:async' as _i2;
 import 'package:nook_control_client/src/protocol/company.dart' as _i3;
 import 'package:nook_control_client/src/protocol/user.dart' as _i4;
-import 'package:nook_control_client/src/protocol/tmdb/tv_list_response_tmdb.dart'
+import 'package:nook_control_client/src/protocol/tmdb/search/tv/tv_list_response_tmdb.dart'
     as _i5;
-import 'package:nook_control_client/src/protocol/tmdb/search_tv_show_query.dart'
+import 'package:nook_control_client/src/protocol/tmdb/search/search_query.dart'
     as _i6;
 import 'package:nook_control_client/src/protocol/auth_response.dart' as _i7;
 import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i8;
@@ -70,7 +70,7 @@ class EndpointTvShows extends _i1.EndpointRef {
   @override
   String get name => 'tvShows';
 
-  _i2.Future<_i5.TVListResponseTMDB> searchShows(_i6.SearchTvShowQuery query) =>
+  _i2.Future<_i5.TVListResponseTMDB> searchShows(_i6.SearchQuery query) =>
       caller.callServerEndpoint<_i5.TVListResponseTMDB>(
         'tvShows',
         'searchShows',

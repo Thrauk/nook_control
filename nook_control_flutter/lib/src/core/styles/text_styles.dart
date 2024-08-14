@@ -3,6 +3,18 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:nook_control_flutter/src/core/styles/colors.dart';
 
 class ATTextStyles {
+  static TextStyle custom({
+    Color? color,
+    double? fontSize,
+    FontStyle? fontStyle,
+  }) {
+    return GoogleFonts.inter(
+      fontSize: fontSize ?? 16,
+      color: color ?? ATColors.light80,
+      fontStyle: fontStyle,
+    );
+  }
+
   static TextStyle body({
     Color? color,
   }) {
@@ -43,6 +55,16 @@ class ATTextStyles {
   }) {
     return GoogleFonts.inter(
       fontSize: 24,
+      fontWeight: FontWeight.w600,
+      color: color ?? ATColors.light80,
+    );
+  }
+
+  static TextStyle h3({
+    Color? color,
+  }) {
+    return GoogleFonts.inter(
+      fontSize: 20,
       fontWeight: FontWeight.w600,
       color: color ?? ATColors.light80,
     );
