@@ -108,5 +108,5 @@ class DesktopNavbar extends StatelessWidget {
     }
   }
 
-  bool _isRouteSelected(String route, context) => GoRouterState.of(context).uri.toString() == route;
+  bool _isRouteSelected(String route, context) => GoRouterState.of(context).uri.toString().split('?')[0] == route;
 }
