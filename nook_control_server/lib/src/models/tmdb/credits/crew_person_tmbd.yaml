@@ -1,0 +1,8 @@
+class: CrewPersonTMDB
+fields:
+  adult: bool,
+  gender: int,
+  id: int,
+  name: String,
+  profile_path: String?,
+  job: String,

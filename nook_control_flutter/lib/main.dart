@@ -1,14 +1,8 @@
 import 'package:go_router/go_router.dart';
 import 'package:nook_control_client/nook_control_client.dart';
 import 'package:flutter/material.dart';
-import 'package:nook_control_flutter/src/features/authentication/domain/auth_manager.dart';
 import 'package:nook_control_flutter/src/features/authentication/domain/simple_auth_key_manager.dart';
-import 'package:nook_control_flutter/src/features/authentication/presentation/screens/login_screen.dart';
-import 'package:nook_control_flutter/src/features/authentication/presentation/screens/main_screen.dart';
-import 'package:nook_control_flutter/src/features/authentication/presentation/screens/register_screen.dart';
 import 'package:nook_control_flutter/src/router.dart';
-import 'package:provider/provider.dart';
-import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart';
 import 'package:serverpod_flutter/serverpod_flutter.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:url_strategy/url_strategy.dart';
@@ -26,7 +20,7 @@ var serverpodClient = Client(
   authenticationKeyManager: authManager,
 )..connectivityMonitor = FlutterConnectivityMonitor();
 
-late SessionManager sessionManager;
+// late SessionManager sessionManager;
 
 void main() async {
   setPathUrlStrategy();

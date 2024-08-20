@@ -10,23 +10,24 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
 
-abstract class SearchQuery implements _i1.SerializableModel {
-  SearchQuery._({
+abstract class SearchQuerySingleTMDB implements _i1.SerializableModel {
+  SearchQuerySingleTMDB._({
     required this.query,
     this.includeAdult,
     required this.page,
     this.year,
   });
 
-  factory SearchQuery({
+  factory SearchQuerySingleTMDB({
     required String query,
     bool? includeAdult,
     required int page,
     int? year,
-  }) = _SearchQueryImpl;
+  }) = _SearchQuerySingleTMDBImpl;
 
-  factory SearchQuery.fromJson(Map<String, dynamic> jsonSerialization) {
-    return SearchQuery(
+  factory SearchQuerySingleTMDB.fromJson(
+      Map<String, dynamic> jsonSerialization) {
+    return SearchQuerySingleTMDB(
       query: jsonSerialization['query'] as String,
       includeAdult: jsonSerialization['includeAdult'] as bool?,
       page: jsonSerialization['page'] as int,
@@ -42,7 +43,7 @@ abstract class SearchQuery implements _i1.SerializableModel {
 
   int? year;
 
-  SearchQuery copyWith({
+  SearchQuerySingleTMDB copyWith({
     String? query,
     bool? includeAdult,
     int? page,
@@ -66,8 +67,8 @@ abstract class SearchQuery implements _i1.SerializableModel {
 
 class _Undefined {}
 
-class _SearchQueryImpl extends SearchQuery {
-  _SearchQueryImpl({
+class _SearchQuerySingleTMDBImpl extends SearchQuerySingleTMDB {
+  _SearchQuerySingleTMDBImpl({
     required String query,
     bool? includeAdult,
     required int page,
@@ -80,13 +81,13 @@ class _SearchQueryImpl extends SearchQuery {
         );
 
   @override
-  SearchQuery copyWith({
+  SearchQuerySingleTMDB copyWith({
     String? query,
     Object? includeAdult = _Undefined,
     int? page,
     Object? year = _Undefined,
   }) {
-    return SearchQuery(
+    return SearchQuerySingleTMDB(
       query: query ?? this.query,
       includeAdult: includeAdult is bool? ? includeAdult : this.includeAdult,
       page: page ?? this.page,

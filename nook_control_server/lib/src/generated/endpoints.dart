@@ -13,12 +13,13 @@ import '../endpoints/company_endpoint.dart' as _i2;
 import '../endpoints/example_endpoint.dart' as _i3;
 import '../endpoints/resource_test_endpoint.dart' as _i4;
 import '../endpoints/search_tv_show_endpoint.dart' as _i5;
-import '../endpoints/user_endpoit.dart' as _i6;
-import 'package:nook_control_server/src/generated/company.dart' as _i7;
-import 'package:nook_control_server/src/generated/user.dart' as _i8;
-import 'package:nook_control_server/src/generated/tmdb/search/search_query.dart'
-    as _i9;
-import 'package:serverpod_auth_server/serverpod_auth_server.dart' as _i10;
+import '../endpoints/tmdb_movie_endpoint.dart' as _i6;
+import '../endpoints/user_endpoit.dart' as _i7;
+import 'package:nook_control_server/src/generated/company.dart' as _i8;
+import 'package:nook_control_server/src/generated/user.dart' as _i9;
+import 'package:nook_control_server/src/generated/tmdb/search/search_query_single_tmdb.dart'
+    as _i10;
+import 'package:serverpod_auth_server/serverpod_auth_server.dart' as _i11;
 
 class Endpoints extends _i1.EndpointDispatch {
   @override
@@ -48,7 +49,13 @@ class Endpoints extends _i1.EndpointDispatch {
           'tvShows',
           null,
         ),
-      'userEndpoit': _i6.UserEndpoit()
+      'tmdbMovie': _i6.TmdbMovieEndpoint()
+        ..initialize(
+          server,
+          'tmdbMovie',
+          null,
+        ),
+      'userEndpoit': _i7.UserEndpoit()
         ..initialize(
           server,
           'userEndpoit',
@@ -64,7 +71,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'company': _i1.ParameterDescription(
               name: 'company',
-              type: _i1.getType<_i7.Company>(),
+              type: _i1.getType<_i8.Company>(),
               nullable: false,
             )
           },
@@ -112,7 +119,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'user': _i1.ParameterDescription(
               name: 'user',
-              type: _i1.getType<_i8.User>(),
+              type: _i1.getType<_i9.User>(),
               nullable: false,
             )
           },
@@ -136,7 +143,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'query': _i1.ParameterDescription(
               name: 'query',
-              type: _i1.getType<_i9.SearchQuery>(),
+              type: _i1.getType<_i10.SearchQuerySingleTMDB>(),
               nullable: false,
             )
           },
@@ -151,6 +158,48 @@ class Endpoints extends _i1.EndpointDispatch {
         )
       },
     );
+    connectors['tmdbMovie'] = _i1.EndpointConnector(
+      name: 'tmdbMovie',
+      endpoint: endpoints['tmdbMovie']!,
+      methodConnectors: {
+        'searchMovie': _i1.MethodConnector(
+          name: 'searchMovie',
+          params: {
+            'query': _i1.ParameterDescription(
+              name: 'query',
+              type: _i1.getType<_i10.SearchQuerySingleTMDB>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['tmdbMovie'] as _i6.TmdbMovieEndpoint).searchMovie(
+            session,
+            params['query'],
+          ),
+        ),
+        'getMovieDetails': _i1.MethodConnector(
+          name: 'getMovieDetails',
+          params: {
+            'movieId': _i1.ParameterDescription(
+              name: 'movieId',
+              type: _i1.getType<int>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['tmdbMovie'] as _i6.TmdbMovieEndpoint).getMovieDetails(
+            session,
+            params['movieId'],
+          ),
+        ),
+      },
+    );
     connectors['userEndpoit'] = _i1.EndpointConnector(
       name: 'userEndpoit',
       endpoint: endpoints['userEndpoit']!,
@@ -160,7 +209,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'user': _i1.ParameterDescription(
               name: 'user',
-              type: _i1.getType<_i8.User>(),
+              type: _i1.getType<_i9.User>(),
               nullable: false,
             )
           },
@@ -168,7 +217,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['userEndpoit'] as _i6.UserEndpoit).register(
+              (endpoints['userEndpoit'] as _i7.UserEndpoit).register(
             session,
             params['user'],
           ),
@@ -178,7 +227,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'user': _i1.ParameterDescription(
               name: 'user',
-              type: _i1.getType<_i8.User>(),
+              type: _i1.getType<_i9.User>(),
               nullable: false,
             )
           },
@@ -186,13 +235,13 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['userEndpoit'] as _i6.UserEndpoit).login(
+              (endpoints['userEndpoit'] as _i7.UserEndpoit).login(
             session,
             params['user'],
           ),
         ),
       },
     );
-    modules['serverpod_auth'] = _i10.Endpoints()..initializeEndpoints(server);
+    modules['serverpod_auth'] = _i11.Endpoints()..initializeEndpoints(server);
   }
 }

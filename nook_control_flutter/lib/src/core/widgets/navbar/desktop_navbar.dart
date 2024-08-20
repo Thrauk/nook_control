@@ -4,6 +4,7 @@ import 'package:nook_control_flutter/main.dart';
 import 'package:nook_control_flutter/src/core/styles/colors.dart';
 import 'package:nook_control_flutter/src/core/widgets/navbar/desktop_navbar_button.dart';
 import 'package:nook_control_flutter/src/features/authentication/presentation/screens/main_screen.dart';
+import 'package:nook_control_flutter/src/features/movies/presentation/screens/search_movies_screen.dart';
 import 'package:nook_control_flutter/src/features/tv_shows/presentation/screens/search_tv_shows_screen.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
@@ -68,6 +69,14 @@ class DesktopNavbar extends StatelessWidget {
                         ),
                         isSelected: _isRouteSelected(SearchTvShowsScreen.route, context),
                         buttonLabel: 'TV Shows',
+                      ),
+                      DesktopNavbarButton(
+                        onPressed: () => _onNavigationPressed(
+                          context: context,
+                          targetRoute: SearchMoviesScreen.route,
+                        ),
+                        isSelected: _isRouteSelected(SearchMoviesScreen.route, context),
+                        buttonLabel: 'Movies',
                       ),
                       const Spacer(),
                       DesktopNavbarButton(

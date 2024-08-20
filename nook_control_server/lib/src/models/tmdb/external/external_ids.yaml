@@ -1,0 +1,3 @@
+class: ExternalIds
+fields:
+  imdb_id: String

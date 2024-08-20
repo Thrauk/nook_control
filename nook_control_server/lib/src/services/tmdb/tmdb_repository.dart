@@ -30,13 +30,13 @@ class TMDBRepository {
     }
   }
 
-  Future<TVListResponseTMDB> searchTVShows(SearchQuery tvShowQuery) async {
+  Future<TVListResponseTMDB> searchTVShows(SearchQuerySingleTMDB query) async {
     const String path = '/3/search/tv';
     Map<String, dynamic> queryParams = {
-      'query': tvShowQuery.query,
-      'include_adult': tvShowQuery.includeAdult,
-      'page': tvShowQuery.page,
-      'year': tvShowQuery.year,
+      'query': query.query,
+      'include_adult': query.includeAdult,
+      'page': query.page,
+      'year': query.year,
     }..removeWhere((key, value) => value == null);
     final queryParamsStr = queryParams.map(
       (key, value) => MapEntry(key, value.toString()),
@@ -49,5 +49,42 @@ class TMDBRepository {
     final response = await http.get(url, headers: _headers);
     final responseJson = jsonDecode(response.body);
     return TVListResponseTMDB.fromJson(responseJson);
+  }
+
+  Future<MovieListResponseTMDB> searchMovies(SearchQuerySingleTMDB query) async {
+    const String path = '/3/search/movie';
+    Map<String, dynamic> queryParams = {
+      'query': query.query,
+      'include_adult': query.includeAdult,
+      'page': query.page,
+      'year': query.year,
+    }..removeWhere((key, value) => value == null);
+    final queryParamsStr = queryParams.map(
+      (key, value) => MapEntry(key, value.toString()),
+    );
+    final Uri url = Uri.https(
+      _authority,
+      path,
+      queryParamsStr,
+    );
+    final response = await http.get(url, headers: _headers);
+    final responseJson = jsonDecode(response.body);
+    return MovieListResponseTMDB.fromJson(responseJson);
+  }
+
+  Future<MovieDetailsTMDB> getMovieDetails(int movieId) async {
+    String path = '/3/movie/$movieId';
+    Map<String, dynamic> queryParams = {'append_to_response': 'credits,external_ids'};
+
+    final Uri url = Uri.https(
+      _authority,
+      path,
+      queryParams,
+    );
+
+    print('Calling ${url.toString()}');
+    final response = await http.get(url, headers: _headers);
+    final responseJson = jsonDecode(response.body);
+    return MovieDetailsTMDB.fromJson(responseJson);
   }
 }

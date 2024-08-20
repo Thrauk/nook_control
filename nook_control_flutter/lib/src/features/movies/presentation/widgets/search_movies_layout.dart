@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:nook_control_client/nook_control_client.dart';
 import 'package:nook_control_flutter/main.dart';
+import 'package:nook_control_flutter/src/features/movies/presentation/screens/movie_details_screen.dart';
+import 'package:nook_control_flutter/src/features/movies/presentation/screens/search_movies_screen.dart';
 import 'package:nook_control_flutter/src/features/tv_shows/presentation/screens/search_tv_shows_screen.dart';
 import 'package:nook_control_flutter/src/core/widgets/search_media_item.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
-class SearchTvShowsLayout extends StatefulWidget {
-  const SearchTvShowsLayout({
+class SearchMoviesLayout extends StatefulWidget {
+  const SearchMoviesLayout({
     super.key,
     this.queryParameters = const {},
   });
@@ -14,12 +16,12 @@ class SearchTvShowsLayout extends StatefulWidget {
   final Map<String, dynamic> queryParameters;
 
   @override
-  State<SearchTvShowsLayout> createState() => _SearchTvShowsLayoutState();
+  State<SearchMoviesLayout> createState() => _SearchMoviesLayoutState();
 }
 
-class _SearchTvShowsLayoutState extends State<SearchTvShowsLayout> {
+class _SearchMoviesLayoutState extends State<SearchMoviesLayout> {
   final TextEditingController _searchQueryController = TextEditingController();
-  TVListResponseTMDB? response;
+  MovieListResponseTMDB? response;
   String? _query;
 
   @override
@@ -31,14 +33,14 @@ class _SearchTvShowsLayoutState extends State<SearchTvShowsLayout> {
     if (_query != null) {
       _searchQueryController.text = _query!;
       () async {
-        await _getShows(_query);
+        await _requestData(_query);
         setState(() {});
       }.call();
     }
   }
 
   @override
-  void didUpdateWidget(covariant SearchTvShowsLayout oldWidget) {
+  void didUpdateWidget(covariant SearchMoviesLayout oldWidget) {
     super.didUpdateWidget(oldWidget);
     print('Did update widget');
     print(widget.queryParameters);
@@ -48,7 +50,7 @@ class _SearchTvShowsLayoutState extends State<SearchTvShowsLayout> {
       if (_query != null) {
         _searchQueryController.text = _query!;
         () async {
-          await _getShows(_query);
+          await _requestData(_query);
           setState(() {});
         }.call();
       }
@@ -68,10 +70,10 @@ class _SearchTvShowsLayoutState extends State<SearchTvShowsLayout> {
               child: ShadInput(
                 controller: _searchQueryController,
                 placeholder: Text('Search'),
-                onSubmitted: _onSearchShows,
+                onSubmitted: _onSearch,
                 suffix: IconButton(
                   onPressed: () {
-                    _onSearchShows.call(_searchQueryController.text);
+                    _onSearch.call(_searchQueryController.text);
                   },
                   padding: EdgeInsets.zero,
                   icon: const Icon(Icons.search),
@@ -88,10 +90,18 @@ class _SearchTvShowsLayoutState extends State<SearchTvShowsLayout> {
             itemBuilder: (context, index) {
               final item = response!.results[index];
               return SearchMediaItem(
+                onTap: () {
+                  MovieDetailsScreen.push(
+                    context,
+                    queryParameters: {
+                      'movie_id': item.id,
+                    },
+                  );
+                },
                 item: SearchMediaItemInfo(
                   posterUrl: item.poster_path,
-                  title: item.name,
-                  airDate: item.first_air_date,
+                  title: item.title,
+                  airDate: item.release_date,
                   description: item.overview,
                 ),
               );
@@ -102,8 +112,8 @@ class _SearchTvShowsLayoutState extends State<SearchTvShowsLayout> {
     );
   }
 
-  void _onSearchShows(value) async {
-    SearchTvShowsScreen.go(
+  void _onSearch(value) async {
+    SearchMoviesScreen.go(
       context,
       queryParameters: {
         'query': value,
@@ -111,8 +121,8 @@ class _SearchTvShowsLayoutState extends State<SearchTvShowsLayout> {
     );
   }
 
-  Future<void> _getShows(value) async {
-    response = await serverpodClient.tvShows.searchShows(
+  Future<void> _requestData(value) async {
+    response = await serverpodClient.tmdbMovie.searchMovie(
       SearchQuerySingleTMDB(
         query: value,
         page: 1,

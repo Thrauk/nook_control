@@ -1,0 +1,6 @@
+class: MovieListResponseTMDB
+fields:
+  page: int,
+  results: List<MovieListItemTMDB>,
+  total_pages: int,
+  total_results: int

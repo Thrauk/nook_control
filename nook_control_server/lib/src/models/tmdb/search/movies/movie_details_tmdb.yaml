@@ -1,0 +1,18 @@
+class: MovieDetailsTMDB
+fields:
+  adult: bool?,
+  backdrop_path: String?,
+  # genre_ids: List<int>, add genres in future
+  id: int,
+  imdb_id: String?,
+  original_language: String?,
+  original_title: String,
+  overview: String,
+  popularity: double,
+  poster_path: String?,
+  release_date: String,
+  title: String,
+  vote_average: double,
+  vote_count: int,
+  credits: CreditsTMDB,
+  external_ids: ExternalIds,

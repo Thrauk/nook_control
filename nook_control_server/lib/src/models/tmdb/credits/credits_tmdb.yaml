@@ -1,0 +1,4 @@
+class: CreditsTMDB
+fields:
+  cast: List<CastPersonTMDB>,
+  crew: List<CrewPersonTMDB>

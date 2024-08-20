@@ -5,6 +5,8 @@ import 'package:nook_control_flutter/src/core/widgets/navbar/desktop_navbar.dart
 import 'package:nook_control_flutter/src/features/authentication/presentation/screens/login_screen.dart';
 import 'package:nook_control_flutter/src/features/authentication/presentation/screens/main_screen.dart';
 import 'package:nook_control_flutter/src/features/authentication/presentation/screens/register_screen.dart';
+import 'package:nook_control_flutter/src/features/movies/presentation/screens/movie_details_screen.dart';
+import 'package:nook_control_flutter/src/features/movies/presentation/screens/search_movies_screen.dart';
 import 'package:nook_control_flutter/src/features/tv_shows/presentation/screens/search_tv_shows_screen.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
@@ -37,6 +39,23 @@ final GoRouter mainRouter = GoRouter(
         GoRoute(
           path: MainScreen.route,
           pageBuilder: (context, state) => const NoTransitionPage(child: MainScreen()),
+        ),
+        GoRoute(
+          path: SearchMoviesScreen.route,
+          pageBuilder: (context, state) => NoTransitionPage(child: SearchMoviesScreen.builder(context, state)),
+          routes: [
+            GoRoute(
+              path: MovieDetailsScreen.route,
+              pageBuilder: (context, state) => NoTransitionPage(child: MovieDetailsScreen.builder(context, state)),
+              redirect: (context, state) {
+                String? movieId = state.uri.queryParameters['movie_id'];
+                if (movieId == null || int.tryParse(movieId) == null) {
+                  return SearchMoviesScreen.route;
+                }
+                return null;
+              },
+            ),
+          ],
         ),
         GoRoute(
           path: SearchTvShowsScreen.route,

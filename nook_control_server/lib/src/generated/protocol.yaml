@@ -6,6 +6,9 @@ resourceTest:
   - register:
 tvShows:
   - searchShows:
+tmdbMovie:
+  - searchMovie:
+  - getMovieDetails:
 userEndpoit:
   - register:
   - login:

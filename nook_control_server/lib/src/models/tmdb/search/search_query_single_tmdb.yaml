@@ -1,4 +1,4 @@
-class: SearchQuery
+class: SearchQuerySingleTMDB
 fields:
   query: String,
   includeAdult: bool?,

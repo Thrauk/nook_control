@@ -24,7 +24,7 @@ class JwtRepository {
   }
 
   String createToken(User user) {
-    final DateTime expirationDate = DateTime.now().add(Duration(minutes: 2));
+    final DateTime expirationDate = DateTime.now().add(Duration(hours: 2));
     final int expirationTimestamp = expirationDate.millisecondsSinceEpoch;
     final JwtPayload payload = JwtPayload(
       scopes: <String>['default'],
@@ -34,7 +34,7 @@ class JwtRepository {
     );
 
     final JWT jwt = JWT(payload.toJson(), issuer: 'n00ka-sv-w0rld');
-    final String token = jwt.sign(_secretKey, expiresIn: Duration(minutes: 2));
+    final String token = jwt.sign(_secretKey, expiresIn: Duration(hours: 2));
     return token;
   }
 
