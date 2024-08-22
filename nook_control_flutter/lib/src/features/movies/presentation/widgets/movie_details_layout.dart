@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:nook_control_client/nook_control_client.dart';
 import 'package:nook_control_flutter/main.dart';
+import 'package:nook_control_flutter/src/core/utils/tmdb_format_utils.dart';
+import 'package:nook_control_flutter/src/core/widgets/media_person.dart';
 import 'package:nook_control_flutter/src/core/widgets/media_poster_tmdb.dart';
 
 class MovieDetailsLayout extends StatefulWidget {
@@ -42,47 +44,51 @@ class _MovieDetailsLayoutState extends State<MovieDetailsLayout> {
         child: CircularProgressIndicator(),
       );
     }
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        Row(
-          children: [
-            MediaPosterTMDB(
-              imagePath: response?.poster_path,
-              height: 450,
-              width: 300,
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            Expanded(
-              child: Text(
-                response!.overview,
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Row(
+            children: [
+              MediaPosterTMDB(
+                imagePath: response?.poster_path,
+                height: 450,
+                width: 300,
               ),
+              SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                child: Text(
+                  response!.overview,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 24,
+          ),
+          SizedBox(
+            height: 150,
+            child: ListView.separated(
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              separatorBuilder: (context, index) => const SizedBox(width: 16),
+              itemCount: response?.credits.cast.length ?? 0,
+              itemBuilder: (context, index) {
+                final item = response!.credits.cast[index];
+                return MediaPerson(
+                  name: item.name,
+                  role: item.character,
+                  size: 100,
+                  imagePath: TMDBFormatUtils.fullImagePath(item.profile_path),
+                );
+              },
             ),
-          ],
-        ),
-        // Expanded(
-        //   child: ListView.separated(
-        //     shrinkWrap: true,
-        //     scrollDirection: Axis.horizontal,
-        //     separatorBuilder: (context, index) => const SizedBox(height: 8),
-        //     itemCount: response?.results.length ?? 0,
-        //     itemBuilder: (context, index) {
-        //       final item = response!.results[index];
-        //       return SearchMediaItem(
-        //         item: SearchMediaItemInfo(
-        //           posterUrl: item.poster_path,
-        //           title: item.title,
-        //           airDate: item.release_date,
-        //           description: item.overview,
-        //         ),
-        //       );
-        //     },
-        //   ),
-        // )
-      ],
+          )
+        ],
+      ),
     );
   }
 
