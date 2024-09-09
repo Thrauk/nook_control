@@ -1,0 +1,14 @@
+class: MovieDetails
+fields:
+  posterUrl: String?,
+  # genre_ids: List<int>, add genres in future
+  tmdbId: int,
+  imdbId: String?,
+  description: String,
+  popularity: double,
+  releaseDate: String,
+  title: String,
+  voteAverage: double,
+  voteCount: int,
+  credits: CreditsTMDB,
+  externalIds: ExternalIds,

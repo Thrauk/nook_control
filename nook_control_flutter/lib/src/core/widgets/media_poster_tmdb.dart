@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nook_control_flutter/src/core/utils/tmdb_format_utils.dart';
 
 class MediaPosterTMDB extends StatelessWidget {
   const MediaPosterTMDB({
@@ -11,8 +12,6 @@ class MediaPosterTMDB extends StatelessWidget {
   final double? width;
   final double? height;
 
-  static const baseUrl = 'https://image.tmdb.org/t/p/original/';
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -23,7 +22,7 @@ class MediaPosterTMDB extends StatelessWidget {
         image: imagePath != null
             ? DecorationImage(
                 fit: BoxFit.contain,
-                image: NetworkImage(baseUrl + imagePath!),
+                image: NetworkImage(TMDBFormatUtils.fullImagePath(imagePath)!),
               )
             : null,
       ),
